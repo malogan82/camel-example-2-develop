@@ -1,0 +1,43 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>it.marco.camel</groupId>
+  <artifactId>camel-example-2</artifactId>
+  <version>1.0.0</version>
+  <name>camel-example-2</name>
+  <description>Chapter 2 Apache Camel examples</description>
+  <properties>
+   <camel.version>2.21.0.fuse-720050-redhat-00001</camel.version>
+  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-core</artifactId>
+      <version>${camel.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>1.7.12</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-jaxb</artifactId>
+      <version>${camel.version}</version>
+    </dependency>
+    <dependency>
+	  <groupId>org.apache.camel</groupId>
+	  <artifactId>camel-jackson</artifactId>
+	  <version>${camel.version}</version>
+	</dependency>
+	<dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-spring</artifactId>
+      <version>${camel.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-xstream</artifactId>
+      <version>${camel.version}</version>
+    </dependency>
+  </dependencies>
+</project>
