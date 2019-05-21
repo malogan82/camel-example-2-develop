@@ -3,6 +3,15 @@
     xmlns:camel="http://camel.apache.org/schema/spring"
     xmlns:prop="http://camel.apache.org/schema/placeholder"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans                  http://www.springframework.org/schema/beans/spring-beans-3.0.xsd                 http://camel.apache.org/schema/spring                  http://camel.apache.org/schema/spring/camel-spring.xsd">
+    <bean id="date" class="java.util.Date"/>
+    <bean id="startPolicy" class="org.apache.camel.routepolicy.quartz.SimpleScheduledRoutePolicy">
+	    <property name="routeStartDate" ref="date"/>
+	    <property name="routeStartRepeatCount" value="1"/>
+	    <property name="routeStartRepeatInterval" value="3000"/>
+	</bean>
+	<bean id="startCronPolicy" class="org.apache.camel.routepolicy.quartz.CronScheduledRoutePolicy">
+    	<property name="routeStartTime" value="*/3 * * * * ?"/>
+	</bean>
     <bean class="org.apache.camel.component.binding.BindingComponent" id="jaxbmc">
         <constructor-arg ref="jaxb"/>
         <constructor-arg value="direct:marshal-component"/>
@@ -107,5 +116,21 @@
             <to id="_to15" uri="log:result"/>
             <to id="_to16" uri="mock:result"/>
         </route>
+        <route id="first" startupOrder="1">
+            <from id="_from13" uri="jetty:http://localhost:8180"/>
+            <to id="_to17" uri="seda:buffer"/>
+        </route>
+        <route id="second" startupOrder="2">
+            <from id="_from14" uri="seda:buffer"/>
+            <to id="_to18" uri="mock:result"/>
+        </route>
+        <route id="myroute" routePolicyRef="startPolicy">
+	        <from uri="direct:start-policy"/>
+	        <to uri="mock:success"/>
+	    </route>
+	    <route id="testRoute" routePolicyRef="startPolicy">
+	        <from uri="direct:start-cron-policy"/>
+	        <to uri="mock:success"/>
+	    </route>
     </camelContext>
 </beans>
